@@ -762,10 +762,11 @@ onMounted(() => {
     })
 
     // assign logo and player image paths at runtime so missing images won't break compilation
-    logoSrc.value = '/LaRetaFT_logo.png'
-    player1Src.value = '/Jugador1.png'
-    player2Src.value = '/Jugador2.png'
-    trophySrc.value = '/trophy.png'
+  const BASE = import.meta.env.BASE_URL || '/'
+  logoSrc.value = BASE + 'LaRetaFT_logo.png'
+  player1Src.value = BASE + 'Jugador1.png'
+  player2Src.value = BASE + 'Jugador2.png'
+  trophySrc.value = BASE + 'trophy.png'
 
     // notification artwork (drop your PNGs into /public with these names)
     notifBgSrc.value = '/notif-bg.png'
