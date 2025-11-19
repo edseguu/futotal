@@ -57,7 +57,9 @@ onBeforeUnmount(() => {
       <div class="row">
         <template v-if="trackItems.length > 0">
           <template v-for="(it, i) in trackItems" :key="`a-`+i">
-            <img v-if="it.type==='logo'" class="logo" :src="it.src" alt="logo" draggable="false" />
+            <div v-if="it.type==='logo'" class="logo-item">
+              <img class="logo" :src="it.src" alt="logo" draggable="false" />
+            </div>
             <div v-else class="phrase-chip">{{ it.text }}</div>
           </template>
         </template>
@@ -68,7 +70,9 @@ onBeforeUnmount(() => {
       <div class="row">
         <template v-if="trackItems.length > 0">
           <template v-for="(it, i) in trackItems" :key="`b-`+i">
-            <img v-if="it.type==='logo'" class="logo" :src="it.src" alt="logo" draggable="false" />
+            <div v-if="it.type==='logo'" class="logo-item">
+              <img class="logo" :src="it.src" alt="logo" draggable="false" />
+            </div>
             <div v-else class="phrase-chip">{{ it.text }}</div>
           </template>
         </template>
@@ -145,9 +149,32 @@ onBeforeUnmount(() => {
   100% { transform: translate3d(-100%,0,0); }
 }
 
+.logo-item {
+  /* Uniform footprint for all logos */
+  width: clamp(180px, 18vw, 240px);
+  height: clamp(55px, 7vh, 70px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+/* Special size for GM logo */
+.logo-item:has(.logo[src*="GM"]) {
+  width: clamp(200px, 20vw, 260px);
+  height: clamp(60px, 8vh, 80px);
+}
+
+/* Smaller size for NewBalance logo */
+.logo-item:has(.logo[src*="NewBalance"]) {
+  width: clamp(150px, 15vw, 200px);
+  height: clamp(45px, 6vh, 55px);
+}
+
 .logo {
-  height: clamp(28px, 6vh, 64px);
-  width: auto;
+  /* Force all logos to fill container identically */
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   filter: drop-shadow(0 2px 8px rgba(0,0,0,0.35));
   opacity: 0.95;
